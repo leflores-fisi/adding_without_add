@@ -3,7 +3,7 @@
 #include <string>
 #include <stdlib.h> // atoi
 #include <conio.h>
-#define BIT_SIZE 64;
+#define BIT_SIZE 32;
 // TODO: Pass read-only argument by const reference
 
 unsigned long recursiveSum(int a, int b);
@@ -25,13 +25,13 @@ int main() {
 }
 
 unsigned long recursiveSum(int a, int b) {
-	std::string aBinary = std::bitset<32>(a).to_string();
-	std::string bBinary = std::bitset<32>(b).to_string();
+	std::string aBinary = std::bitset<BIT_SIZE>(a).to_string();
+	std::string bBinary = std::bitset<BIT_SIZE>(b).to_string();
 
 	int previousCarry = 0;
 	std::string sumToReturn = "";
 
-	for (int i = 31; i >= 0; i--) {
+	for (int i = BIT_SIZE-1; i >= 0; i--) {
 		int aBit, bBit, sum, carry;
 
 	    aBit = (int)aBinary[i] - 48;
@@ -39,7 +39,7 @@ unsigned long recursiveSum(int a, int b) {
 
 		carry = CARRY_OF_SUM(aBit, bBit, previousCarry);
 		sum   = SUM(aBit, bBit, previousCarry);
-		//std::cout << previousCarry << " | " << aBit << " + " << bBit << " = " << sum << " carrying " << carry << std::endl;
+
 		previousCarry = carry;
 		sumToReturn = std::to_string(sum) + sumToReturn;
 	}
@@ -63,7 +63,7 @@ int SUM(int bit1, int bit2, int carry) {
 }
 
 int NEGATE(int num) {
-	return ~num + 1; // FIX SUM
+	return ~num + 1;
 }
 int AND(int a, int b) {
 	return a & b;
@@ -71,7 +71,7 @@ int AND(int a, int b) {
 int OR(int a, int b) {
 	return a | b;
 }
-// Exclusive or (1 if both are different, 0 otherwise)
+// Stands for "Exclusive or" (1 if both are different, otherwise return 0)
 int XOR(int a, int b) {
 	return a ^ b;
 }
