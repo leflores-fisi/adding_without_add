@@ -1,9 +1,7 @@
 #include <iostream>
 #include <bitset>
 #include <string>
-#include <stdlib.h> // atoi
 #include <conio.h>
-// TODO: Pass read-only argument by const reference
 
 /*
   Algorithm for adding without the sum operator.
@@ -92,10 +90,10 @@ int charToInt(char c);
 int main() {
 	int first, second;
 
-	std::cout << "Write a sum like \"a + b\": ";
+	std::cout << "Write a sum like \"a + b\"\n:";
 	scanf("%d + %d", &first, &second);
 
-	std::cout << "BROOOOOO: " << bitwiseSUM(first, second) << std::endl;
+	std::cout << "IT WOOOORKSS: " << bitwiseSUM(first, second) << std::endl;
     getch();
     return 0;
 }
@@ -150,26 +148,6 @@ int GET_SUM_CARRY(int bit1, int bit2, int prevCarry) {
 	return carry;
 }
 
-/* Bitwise operators */
-int NEGATE(int num) {
-	return ~num + 1;
-}
-int AND(int a, int b) {
-	return a & b;
-}
-int OR(int a, int b) {
-	return a | b;
-}
-// Stands for "Exclusive or" (1 if both bits are different, otherwise return 0)
-int XOR(int a, int b) {
-	return a ^ b;
-}
-
-/* Just a helper :D */
-int charToInt(char c) {
-	return static_cast<int>(c) - 48;
-}
-
 /*
   Now we can create our main algorithm, how exciting!
   The basic idea is transform our two integers to binary numbers,
@@ -207,3 +185,25 @@ unsigned long bitwiseSUM(int a, int b) {
 	// Its all done, you can test the code an suggest changes
 	// Thanks for coming here, you brave one, have a good night
 }
+
+/* Bitwise operators */
+int NEGATE(int num) {
+	return ~num + 1;
+}
+int AND(int a, int b) {
+	return a & b;
+}
+int OR(int a, int b) {
+	return a | b;
+}
+// Stands for "Exclusive or" (1 if both bits are different, otherwise return 0)
+int XOR(int a, int b) {
+	return a ^ b;
+}
+
+/* Just a helper :D */
+int charToInt(char c) {
+	return static_cast<int>(c) - 48;
+}
+
+// #FISI
