@@ -1,4 +1,5 @@
 ## Adding without add
-Based on bitwise operators
-Applied from the content of ![This video](https://www.youtube.com/watch?v=wvJc9CZcvBc)\
+Based on bitwise operators.
+
+Applied using the concepts covered by ![Ben Eater](https://www.youtube.com/watch?v=wvJc9CZcvBc) <3
 
