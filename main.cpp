@@ -16,10 +16,10 @@ int NEGATE(int num);
 
 int main() {
 	int first, second;
+	std::cout << "Write a sum like \"a + b\": ";
 	scanf("%d + %d", &first, &second);
 
-	std::cout << "ALABERGAAA: " << recursiveSum(first, second) << std::endl << std::endl;
-	std::cout << "Todos los derechos reservados" << std::endl;
+	std::cout << "BROOOOOO: " << recursiveSum(first, second) << std::endl << std::endl;
     getch();
     return 0;
 }
