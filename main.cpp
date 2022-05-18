@@ -6,8 +6,10 @@
 // TODO: Pass read-only argument by const reference
 
 unsigned long recursiveSum(int a, int b);
+// Add two bits and return
 int SUM(int bit1, int bit2, int carry = 0);
 int CARRY_OF_SUM(int bit1, int bit2, int prevCarry = 0);
+
 int AND(int a, int b);
 int OR(int a, int b);
 int XOR(int a, int b);
@@ -18,7 +20,7 @@ int main() {
 	std::cout << "Write a sum like \"a + b\": ";
 	scanf("%d + %d", &first, &second);
 
-	std::cout << "BROOOOOO: " << recursiveSum(first, second) << std::endl << std::endl;
+	std::cout << "BROOOOOO: " << recursiveSum(first, second) << std::endl;
     getch();
     return 0;
 }
@@ -34,8 +36,8 @@ unsigned long recursiveSum(int a, int b) {
 	for (int i = BIT_SIZE-1; i >= 0; i--) {
 		int aBit, bBit, sum, carry;
 
-	    aBit = static_cast<int>aBinary[i] - 48;
-		bBit = static_cast<int>bBinary[i] - 48;
+	    aBit = static_cast<int>(aBinary[i]) - 48;
+		bBit = static_cast<int>(bBinary[i]) - 48;
 
 		carry = CARRY_OF_SUM(aBit, bBit, previousCarry);
 		sum   = SUM(aBit, bBit, previousCarry);
