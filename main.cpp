@@ -3,7 +3,6 @@
 #include <string>
 #include <stdlib.h> // atoi
 #include <conio.h>
-#define BIT_SIZE 32;
 // TODO: Pass read-only argument by const reference
 
 unsigned long recursiveSum(int a, int b);
@@ -25,6 +24,7 @@ int main() {
 }
 
 unsigned long recursiveSum(int a, int b) {
+	const int BIT_SIZE = 32;
 	std::string aBinary = std::bitset<BIT_SIZE>(a).to_string();
 	std::string bBinary = std::bitset<BIT_SIZE>(b).to_string();
 
@@ -34,8 +34,8 @@ unsigned long recursiveSum(int a, int b) {
 	for (int i = BIT_SIZE-1; i >= 0; i--) {
 		int aBit, bBit, sum, carry;
 
-	    aBit = (int)aBinary[i] - 48;
-		bBit = (int)bBinary[i] - 48;
+	    aBit = static_cast<int>aBinary[i] - 48;
+		bBit = static_cast<int>bBinary[i] - 48;
 
 		carry = CARRY_OF_SUM(aBit, bBit, previousCarry);
 		sum   = SUM(aBit, bBit, previousCarry);
