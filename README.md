@@ -1,10 +1,10 @@
 ## Adding without add
 Based on bitwise operators.
 
-Applied using the concepts covered by ![Ben Eater](https://www.youtube.com/watch?v=wvJc9CZcvBc) <3
+Applied using the concepts covered by [Ben Eater](https://www.youtube.com/watch?v=wvJc9CZcvBc) 🐢
 
-See the main.cpp for a warm the code explanation.
-"How a computer add numbers? How we can sum without arithmetic operators? 😱"
+See the main.cpp for a warm explanation of the code.
+"How a computer add numbers? How we can sum without arithmetic operators? 🙀"
 
 ```cpp
 Algorithm for adding without the sum operator.
