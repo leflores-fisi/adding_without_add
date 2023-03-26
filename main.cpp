@@ -1,7 +1,6 @@
 #include <iostream>
 #include <bitset>
 #include <string>
-#include <conio.h>
 
 /*
   Algorithm for adding without the sum operator.
@@ -88,13 +87,14 @@ int charToInt(char c);
 
 
 int main() {
-	int first, second;
+    int first, second;
 
-	std::cout << "Write a sum like \"a + b\"\n:";
-	scanf("%d + %d", &first, &second);
-
-	std::cout << "IT WOOOORKSS: " << bitwiseSUM(first, second) << std::endl;
-    getch();
+    do {
+        std::cout << "Write a sum like \"a + b\"\n:";
+        scanf("%d + %d", &first, &second);
+        // it wooorks
+        std::cout << "-> " << bitwiseSUM(first, second) << std::endl;
+    } while (true);
     return 0;
 }
 
@@ -114,11 +114,11 @@ int main() {
   this is exploited later (in GET_SUM_CARRY) by the algorithm
 */
 int BIT_SUM(int bit1, int bit2, int carry) {
-	int logicSum = XOR(bit1, bit2);
-	// XOR will invert the logicSum result if exist carry
-	// that's because the carry causes the bits either to overflow or go from 0 to 1, one of that two
-	return XOR(logicSum, carry);
-	// Now we need to handle the carry
+    int logicSum = XOR(bit1, bit2);
+    // XOR will invert the logicSum result if exist carry
+    // that's because the carry causes the bits either to overflow or go from 0 to 1, one of that two
+    return XOR(logicSum, carry);
+    // Now we need to handle the carry
 }
 
 /*
@@ -128,24 +128,24 @@ int BIT_SUM(int bit1, int bit2, int carry) {
 // Note that in the BIT_SUM() examples only exist carry if both bits are 1 or previous carry overflowed the sum
 // This function returns that carry (0 or 1)
 int GET_SUM_CARRY(int bit1, int bit2, int prevCarry) {
-	// First, we need to check if the bits sum will overflow
-	// As mentioned before, only two ways exist:
-	// - with carry and adding 0+0 or 1+1
-	// - without carry and adding 1+1
-	// People found smart ways to check this with bitwise operators :D
+    // First, we need to check if the bits sum will overflow
+    // As mentioned before, only two ways exist:
+    // - with carry and adding 0+0 or 1+1
+    // - without carry and adding 1+1
+    // People found smart ways to check this with bitwise operators :D
 
-	int logicSum = XOR(bit1, bit2); // here XOR helps to check if bits are 1+0 or 0+1
+    int logicSum = XOR(bit1, bit2); // here XOR helps to check if bits are 1+0 or 0+1
 
-	// First way
-	// -> 1: only if (exist prevCarry) AND (bits are 1+0 or 0+1)
-	int willOverflowWithCarry = AND(logicSum, prevCarry);
-	// -> 1: only overflowed on 1+1 (thats why we use AND bitwise operator)
-	int alreadyOverflowed = AND(bit1, bit2);
+    // First way
+    // -> 1: only if (exist prevCarry) AND (bits are 1+0 or 0+1)
+    int willOverflowWithCarry = AND(logicSum, prevCarry);
+    // -> 1: only overflowed on 1+1 (thats why we use AND bitwise operator)
+    int alreadyOverflowed = AND(bit1, bit2);
 
-	// So.. we are going to have a carry if at least one of these conditions are "true"
-	// Note that is impossible to have both as true
-	int carry = OR(willOverflowWithCarry, alreadyOverflowed);
-	return carry;
+    // So.. we are going to have a carry if at least one of these conditions are "true"
+    // Note that is impossible to have both as true
+    int carry = OR(willOverflowWithCarry, alreadyOverflowed);
+    return carry;
 }
 
 /*
@@ -157,53 +157,53 @@ int GET_SUM_CARRY(int bit1, int bit2, int prevCarry) {
   I made the code as self readable as possible, so enjoy <3
 */
 unsigned long bitwiseSUM(int a, int b) {
-	const int BIT_SIZE = 32;
-	// Converting integers to string bits
-	std::string aBinary = std::bitset<BIT_SIZE>(a).to_string();
-	std::string bBinary = std::bitset<BIT_SIZE>(b).to_string();
+    const int BIT_SIZE = 32;
+    // Converting integers to string bits
+    std::string aBinary = std::bitset<BIT_SIZE>(a).to_string();
+    std::string bBinary = std::bitset<BIT_SIZE>(b).to_string();
 
-	int previousCarry = 0;
-	std::string sumToReturn = "";
+    int previousCarry = 0;
+    std::string sumToReturn = "";
 
-	// reverse iteration
-	for (int i = BIT_SIZE-1; i >= 0; i--) {
-		int aBit, bBit, bit_result, carry_result;
+    // reverse iteration
+    for (int i = BIT_SIZE-1; i >= 0; i--) {
+        int aBit, bBit, bit_result, carry_result;
 
-		// There is, our two bits
-	    aBit = charToInt(aBinary[i]);
-		bBit = charToInt(bBinary[i]);
+        // There is, our two bits
+        aBit = charToInt(aBinary[i]);
+        bBit = charToInt(bBinary[i]);
 
-		carry_result = GET_SUM_CARRY(aBit, bBit, previousCarry);
-		bit_result   = BIT_SUM(aBit, bBit, previousCarry);
+        carry_result = GET_SUM_CARRY(aBit, bBit, previousCarry);
+        bit_result   = BIT_SUM(aBit, bBit, previousCarry);
 
-		previousCarry = carry_result;
-		// appending the bit to the left
-		sumToReturn = std::to_string(bit_result) + sumToReturn;
-	}
-	// And...
-	return std::bitset<BIT_SIZE>(sumToReturn).to_ulong();
-	// Its all done, you can test the code an suggest changes
-	// Thanks for coming here, you brave one, have a good night
+        previousCarry = carry_result;
+        // appending the bit to the left
+        sumToReturn = std::to_string(bit_result) + sumToReturn;
+    }
+    // And...
+    return std::bitset<BIT_SIZE>(sumToReturn).to_ulong();
+    // Its all done, you can test the code an suggest changes
+    // Thanks for coming here, you brave one, have a good night
 }
 
 /* Bitwise operators */
 int NEGATE(int num) {
-	return ~num + 1;
+    return ~num + 1;
 }
 int AND(int a, int b) {
-	return a & b;
+    return a & b;
 }
 int OR(int a, int b) {
-	return a | b;
+    return a | b;
 }
 // Stands for "Exclusive or" (1 if both bits are different, otherwise return 0)
 int XOR(int a, int b) {
-	return a ^ b;
+    return a ^ b;
 }
 
 /* Just a helper :D */
 int charToInt(char c) {
-	return static_cast<int>(c) - 48;
+    return static_cast<int>(c) - 48;
 }
 
 // #FISI
